@@ -1,7 +1,8 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void insertAt(int arr[], int &array_size, int index, int element)
+void insertAt(vector<int> &arr, int array_size, int index, int element)
 {
     // Checking for Invalid index
     if (index < 0 || index > array_size)
@@ -11,11 +12,11 @@ void insertAt(int arr[], int &array_size, int index, int element)
     }
 
     // Checking if the array is full
-    if (array_size == (sizeof(arr) / sizeof(arr[0])))
-    {
-        cout << "Array is full" << endl;
-        return;
-    }
+    // if (array_size == arr.size())
+    // {
+    //     cout << "Array is full" << endl;
+    //     return;
+    // }
 
     // Shifting elements to the right from the index
     for (int i = array_size; i > index; i--)
@@ -28,7 +29,7 @@ void insertAt(int arr[], int &array_size, int index, int element)
     cout << "\nInserted element at index => " << index;
 }
 
-void deleteAt(int arr[], int &array_size, int index)
+void deleteAt(vector<int> &arr, int &array_size, int index)
 {
     // Checking for Invalid index
     if (index < 0 || index >= array_size)
@@ -49,8 +50,8 @@ void deleteAt(int arr[], int &array_size, int index)
 
 int main()
 {
-    int arr[] = {2, 4, 6, 8, 10};
-    int array_size = sizeof(arr) / sizeof(arr[0]);
+    vector<int> arr = {2, 4, 6, 8, 10};
+    int array_size = arr.size();
 
     int element = 3;
     int index = 1;
@@ -60,6 +61,7 @@ int main()
     {
         cout << arr[i] << " ";
     }
+
     insertAt(arr, array_size, index, element);
     cout << "\nArray after insertion: ";
     for (int i = 0; i < array_size; i++)
