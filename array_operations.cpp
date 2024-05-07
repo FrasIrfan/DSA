@@ -1,62 +1,86 @@
 #include <iostream>
 using namespace std;
 
-int LinearSearch(int arr[], int array_size, int element)
+void insertAt(int arr[], int &array_size, int index, int element)
 {
-    for (int i = 0; i < array_size; i++)
+    // Checking for Invalid index
+    if (index < 0 || index > array_size)
     {
-        if (arr[i] == element)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-int BinarySearch(int arr[], int array_size, int element)
-{
-    int low = 0;
-    int high = array_size - 1;
-    while (low <= high)
-    {
-        int mid = (low + high) / 2;
-        if (arr[mid] == element)
-        {
-            return mid;
-        }
-        else if (arr[mid] < element)
-        {
-            low = mid + 1;
-        }
-        else
-        {
-            high = mid - 1;
-        }
+        cout << "Invalid Index" << endl;
+        return;
     }
 
-    return -1;
+    // Checking if the array is full
+    if (array_size == (sizeof(arr) / sizeof(arr[0])))
+    {
+        cout << "Array is full" << endl;
+        return;
+    }
+
+    // Shifting elements to the right from the index
+    for (int i = array_size; i > index; i--)
+    {
+        arr[i] = arr[i - 1];
+    }
+
+    arr[index] = element;
+    array_size++;
+    cout << "\nInserted element at index => " << index;
+}
+
+void deleteAt(int arr[], int &array_size, int index)
+{
+    // Checking for Invalid index
+    if (index < 0 || index >= array_size)
+    {
+        cout << "Invalid Index" << endl;
+        return;
+    }
+
+    // Shifting elements to the left from the index
+    for (int i = index; i < array_size - 1; i++)
+    {
+        arr[i] = arr[i + 1];
+    }
+
+    array_size--;
+    cout << "\nDeleted element at index => " << index << endl;
 }
 
 int main()
 {
-    // Array for Linear Search
-    int arr[] = {2, 4, 6, 8, 10, 12, 7, 9, 3, 22, 5};
+    int arr[] = {2, 4, 6, 8, 10};
     int array_size = sizeof(arr) / sizeof(arr[0]);
-    int element = 22;
 
-    // Array for Binary Search
-    // int arr[] = {2, 4, 6, 8, 10, 12, 14};
-    // int array_size = sizeof(arr) / sizeof(arr[0]);
-    // int element = 6;
+    int element = 3;
+    int index = 1;
 
-    int SearchIndex = BinarySearch(arr, array_size, element);
-    if (SearchIndex == -1)
+    cout << "Array before insertion: ";
+    for (int i = 0; i < array_size; i++)
     {
-        cout << "Element not found" << endl;
+        cout << arr[i] << " ";
     }
-    else
+    insertAt(arr, array_size, index, element);
+    cout << "\nArray after insertion: ";
+    for (int i = 0; i < array_size; i++)
     {
-        cout << "Element found at index => " << SearchIndex << endl;
+        cout << arr[i] << " ";
     }
+
+    cout << "\n\nArray before deletion: ";
+    for (int i = 0; i < array_size; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    index = 2;
+    deleteAt(arr, array_size, index);
+    cout << "Array after deletion: ";
+    for (int i = 0; i < array_size; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+    cout << endl;
 
     return 0;
 }
