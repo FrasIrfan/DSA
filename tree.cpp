@@ -16,6 +16,15 @@ struct TreeNode
         right = nullptr;
     }
 };
+// function to perform inorder traversal (Visits nodes in the order Left-Root-Right)
+void inOrderTraversal(TreeNode *root)
+{
+    if (root == nullptr)
+        return;
+    inOrderTraversal(root->left);
+    cout << root->data << " ";
+    inOrderTraversal(root->right);
+}
 
 int main()
 {
@@ -29,6 +38,11 @@ int main()
     cout << "Root:" << root->data << endl;
     cout << "left child node:" << root->left->data << endl;
     cout << "right child node:" << root->right->data << endl;
+
+    // perform inorder traversal
+    cout << "Inorder Traversal: ";
+    inOrderTraversal(root);
+    cout << endl;
 
     return 0;
 }
